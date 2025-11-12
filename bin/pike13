@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require_relative "../lib/pike13/cli"
+
+Pike13::CLI::Runner.start(ARGV)
