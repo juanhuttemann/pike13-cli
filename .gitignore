@@ -44,4 +44,4 @@
 .DS_Store
 
 # RSpec
-.rspec_status
+spec/.rspec_status
