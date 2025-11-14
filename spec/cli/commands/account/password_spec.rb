@@ -37,9 +37,7 @@ RSpec.describe Pike13::CLI::Commands::Account::Password do
       end
 
       it "handles validation error gracefully" do
-        expect(command).to receive(:handle_error).and_yield
-
-        command.invoke(:reset, [], { email: "invalid-email" })
+        expect { command.invoke(:reset, [], { email: "invalid-email" }) }.to raise_error(SystemExit)
       end
     end
   end

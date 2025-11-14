@@ -37,9 +37,7 @@ RSpec.describe Pike13::CLI::Commands::Account::Confirmation do
       end
 
       it "handles validation error gracefully" do
-        expect(command).to receive(:handle_error).and_yield
-
-        command.invoke(:create, [], { token: "invalid_token" })
+        expect { command.invoke(:create, [], { token: "invalid_token" }) }.to raise_error(SystemExit)
       end
     end
   end

@@ -42,9 +42,7 @@ RSpec.describe Pike13::CLI::Commands::Desk::Business do
       end
 
       it "handles not found error gracefully" do
-        expect(command).to receive(:handle_error).and_yield
-
-        command.invoke(:find)
+        expect { command.invoke(:find) }.to raise_error(SystemExit)
       end
     end
   end
