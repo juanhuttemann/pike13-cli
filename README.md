@@ -74,14 +74,14 @@ pike13 account me
 # List all businesses
 pike13 account businesses list
 
-# List all people across businesses
+# List all people in the account
 pike13 account people list
 
 # Request password reset
 pike13 account password reset --email=user@example.com
 
 # Create email confirmation
-pike13 account confirmation create --token=confirmation_token
+pike13 account confirmation create --email=user@example.com
 ```
 
 ### Desk Namespace (Staff Interface)
@@ -389,7 +389,7 @@ pike13 report invoice_items query \
 pike13 report invoice_item_transactions query \
   --fields transaction_date,payment_method,net_paid_amount
 
-# Pays (staff compensation)
+# Pays (staff compensation tracking)
 pike13 report pays query \
   --fields staff_name,service_name,final_pay_amount,pay_state
 
