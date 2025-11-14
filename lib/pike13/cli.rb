@@ -51,7 +51,8 @@ module Pike13
       # Hook to configure Pike13 before any command
       def self.start(given_args = ARGV, config = {})
         # Skip config for help commands
-        unless given_args.include?("help") || given_args.include?("version") || given_args.empty?
+        help_commands = %w[help version] + given_args.grep(/--help/)
+        unless help_commands.any? || given_args.empty?
           Config.configure_pike13!
         end
         super

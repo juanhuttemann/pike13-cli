@@ -1,12 +1,32 @@
 # frozen_string_literal: true
 
+require_relative "../thor_nested_subcommand"
+
 module Pike13
   module CLI
     module Commands
       class Base < Thor
+        include ThorNestedSubcommand
+
         # Inherit verbose and quiet options from parent Runner
         class_option :verbose, type: :boolean, aliases: "-v", desc: "Verbose output"
         class_option :quiet, type: :boolean, aliases: "-q", desc: "Quiet mode (errors only)"
+
+        # Auto-generate base_usage from class name
+        def self.base_usage
+          # Convert class name like Pike13::CLI::Commands::Report::Clients
+          # to "report clients"
+          namespace_parts = name.split("::")[3..] # Skip Pike13::CLI::Commands
+          if namespace_parts && namespace_parts.length > 1
+            # For nested classes like Report::Clients
+            namespace_parts.map(&:downcase).join(" ")
+          elsif namespace_parts&.length == 1
+            # For top-level namespace classes
+            namespace_parts.first.downcase
+          else
+            ""
+          end
+        end
 
         # Helper to add format options to commands
         def self.format_options
