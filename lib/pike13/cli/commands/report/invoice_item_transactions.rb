@@ -13,6 +13,7 @@ module Pike13
           def query
             handle_error do
               params = build_query_params
+              params[:fields] ||= %w[transaction_id transaction_date payment_method net_paid_amount]
               result = with_progress("Fetching invoice item transactions report") do
                 Pike13::Reporting::InvoiceItemTransactions.query(**params)
               end

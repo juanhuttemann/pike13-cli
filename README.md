@@ -361,85 +361,79 @@ Advanced analytics and reporting:
 
 ```bash
 # Monthly business metrics
-pike13 report monthly_metrics \
-  --fields "month_start_date,net_paid_amount,member_count" \
-  --from "2025-01-01"
+pike13 report monthly_metrics query \
+  --fields month_start_date,net_paid_amount,member_count
 
 # Clients report
-pike13 report clients \
-  --fields "full_name,email,completed_visits,has_membership" \
-  --filter "has_membership=true"
+pike13 report clients query \
+  --fields full_name,email,completed_visits,has_membership
 
 # Transactions
-pike13 report transactions \
-  --fields "transaction_date,net_paid_amount,payment_method,invoice_payer_name" \
-  --from "2025-01-01" \
-  --to "2025-12-31"
+pike13 report transactions query \
+  --fields transaction_date,net_paid_amount,payment_method,invoice_payer_name
 
 # Invoices
-pike13 report invoices \
-  --fields "invoice_number,expected_amount,outstanding_amount,invoice_state" \
-  --filter "outstanding_amount>0"
+pike13 report invoices query \
+  --fields invoice_number,expected_amount,outstanding_amount,invoice_state
 
 # Enrollments (visits)
-pike13 report enrollments \
-  --fields "full_name,service_name,service_date,state" \
-  --filter "state=completed"
+pike13 report enrollments query \
+  --fields full_name,service_name,service_date,state
 
 # Event occurrences
-pike13 report event_occurrences \
-  --fields "event_name,service_date,enrollment_count,capacity"
+pike13 report event_occurrences query \
+  --fields event_name,service_date,enrollment_count,capacity
 
 # Event occurrence staff members
-pike13 report event_occurrence_staff \
-  --fields "full_name,event_name,service_date,enrollment_count"
+pike13 report event_occurrence_staff query \
+  --fields full_name,event_name,service_date,enrollment_count
 
 # Invoice items
-pike13 report invoice_items \
-  --fields "product_name,expected_amount,net_paid_amount"
+pike13 report invoice_items query \
+  --fields product_name,expected_amount,net_paid_amount
 
 # Invoice item transactions
-pike13 report invoice_item_transactions \
-  --fields "transaction_date,payment_method,net_paid_amount"
+pike13 report invoice_item_transactions query \
+  --fields transaction_date,payment_method,net_paid_amount
 
 # Pays (staff compensation)
-pike13 report pays \
-  --fields "staff_name,service_name,final_pay_amount,pay_state"
+pike13 report pays query \
+  --fields staff_name,service_name,final_pay_amount,pay_state
 
 # Person plans
-pike13 report person_plans \
-  --fields "full_name,plan_name,start_date,is_available"
+pike13 report person_plans query \
+  --fields full_name,plan_name,start_date,is_available
 
 # Staff members
-pike13 report staff_members \
-  --fields "full_name,email,role,tenure"
+pike13 report staff_members query \
+  --fields full_name,email,role,tenure
 ```
 
 ### Report Options
 
 ```bash
-# Filtering (use hash format)
-pike13 report clients --filter has_membership:true
-pike13 report transactions --filter payment_method:creditcard
+# Filtering (use hash format - note: advanced filters may require API-specific syntax)
+pike13 report clients query --filter has_membership:true
+pike13 report transactions query --filter payment_method:cash
 
 # Grouping
-pike13 report clients --group tenure_group
-pike13 report transactions --group payment_method
+pike13 report clients query --group tenure_group
+pike13 report transactions query --group payment_method
 
-# Sorting (use array format, append - for descending)
-pike13 report clients --sort completed_visits-
-pike13 report transactions --sort transaction_date
+# Sorting (comma-separated fields, append - for descending)
+pike13 report clients query --sort completed_visits-
+pike13 report transactions query --sort transaction_date
 
 # Pagination (use hash format)
-pike13 report clients --page size:50 --page number:2
-pike13 report clients --page size:100
+pike13 report clients query --page size:50 --page number:2
+pike13 report clients query --page size:100
 
 # Include total count
-pike13 report clients --total-count
+pike13 report clients query --total-count
 
 # Combine multiple options
-pike13 report clients \
-  --fields full_name email completed_visits \
+pike13 report clients query \
+  --fields full_name,email,completed_visits \
   --filter has_membership:true \
   --sort completed_visits- \
   --page size:50 \
@@ -462,10 +456,10 @@ pike13 desk people list --format table
 pike13 desk people list --format table --color
 
 # CSV output
-pike13 report clients --format csv
+pike13 report clients query --format csv
 
 # Show progress indicator (useful for long-running reports)
-pike13 report clients --progress --format table
+pike13 report clients query --progress --format table
 ```
 
 ### Common Options
@@ -531,29 +525,26 @@ pike13 front people me
 
 ```bash
 # Monthly revenue summary
-pike13 report monthly_metrics \
-  --fields "month_start_date,net_paid_amount,member_count,new_client_count" \
-  --from "2025-01-01" \
+pike13 report monthly_metrics query \
+  --fields month_start_date,net_paid_amount,member_count,new_client_count \
   --format table
 
 # Active members report
-pike13 report clients \
-  --fields "full_name,email,tenure,completed_visits" \
-  --filter "has_membership=true" \
-  --sort "completed_visits-" \
+pike13 report clients query \
+  --fields full_name,email,tenure,completed_visits \
+  --filter has_membership=true \
+  --sort completed_visits- \
   --format csv > active_members.csv
 
 # Payment method breakdown
-pike13 report transactions \
-  --fields "total_net_paid_amount,transaction_count" \
-  --group-by "payment_method" \
-  --from "2025-01-01"
+pike13 report transactions query \
+  --fields total_net_paid_amount,transaction_count \
+  --group payment_method
 
 # Class attendance report
-pike13 report enrollments \
-  --fields "service_name,completed_enrollment_count,noshowed_enrollment_count" \
-  --group-by "service_name" \
-  --filter "state=completed"
+pike13 report enrollments query \
+  --fields service_name,completed_enrollment_count,noshowed_enrollment_count \
+  --group service_name
 ```
 
 ### Shell Integration
@@ -561,16 +552,16 @@ pike13 report enrollments \
 ```bash
 # Chain commands
 CLIENT_ID=$(pike13 desk people search "John" --compact | jq -r '.people[0].id')
-pike13 desk visits summary --person-id $CLIENT_ID
+pike13 desk visits list --person-id $CLIENT_ID
 
 # Export reports
-pike13 report clients \
-  --fields "full_name,email,phone,completed_visits" \
+pike13 report clients query \
+  --fields full_name,email,phone,completed_visits \
   --format csv > clients_$(date +%Y%m%d).csv
 
 # Monitor daily signups
-watch -n 300 "pike13 report clients \
-  --filter 'client_since_date=$(date +%Y-%m-%d)' \
+watch -n 300 "pike13 report clients query \
+  --fields full_name,email,client_since_date \
   --format table"
 ```
 
@@ -615,8 +606,8 @@ pike13 version
 
 Show a spinner for long-running report queries:
 ```bash
-pike13 report clients --progress --format table
-pike13 report transactions --progress --from "2025-01-01" --to "2025-12-31"
+pike13 report clients query --progress --format table
+pike13 report transactions query --progress --format table
 ```
 Note: Progress indicators only appear in TTY mode and are automatically disabled when piping.
 
@@ -625,7 +616,7 @@ Note: Progress indicators only appear in TTY mode and are automatically disabled
 Colors and progress indicators are automatically disabled when piping:
 ```bash
 # Save to file
-pike13 report clients --fields "full_name,email" --format csv > clients.csv
+pike13 report clients query --fields full_name,email --format csv > clients.csv
 
 # Pipe to other commands
 pike13 desk people list --format json | jq '.people[0]'
@@ -762,20 +753,20 @@ pike13 desk event_occurrences list --from "2025-01-01" --to "2025-01-31"
 
 ```bash
 # For hash options, use key:value format
-pike13 report clients --filter has_membership:true
+pike13 report clients query --filter has_membership:true
 
-# For multiple filters (array format), the SDK handles complex filters
-# Consult Pike13 API documentation for advanced filter syntax
+# For multiple filters or complex conditions, consult Pike13 API documentation
+# The CLI supports basic hash filters; advanced filters may require API-specific array syntax
 ```
 
 ### Large Result Sets
 
 ```bash
 # For large reports, use pagination
-pike13 report clients --page size:100 --page number:1
+pike13 report clients query --page size:100 --page number:1
 
 # Or save directly to file
-pike13 report clients --format csv > clients.csv
+pike13 report clients query --format csv > clients.csv
 ```
 
 ### Getting Help

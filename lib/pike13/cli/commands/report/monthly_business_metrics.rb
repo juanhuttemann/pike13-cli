@@ -13,6 +13,7 @@ module Pike13
           def query
             handle_error do
               params = build_query_params
+              params[:fields] ||= %w[month_start_date net_paid_amount member_count new_client_count]
               result = with_progress("Fetching monthly business metrics report") do
                 Pike13::Reporting::MonthlyBusinessMetrics.query(**params)
               end

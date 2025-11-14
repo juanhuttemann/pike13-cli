@@ -13,6 +13,7 @@ module Pike13
           def query
             handle_error do
               params = build_query_params
+              params[:fields] ||= %w[person_plan_id person_id plan_name start_date is_available]
               result = with_progress("Fetching person plans report") do
                 Pike13::Reporting::PersonPlans.query(**params)
               end

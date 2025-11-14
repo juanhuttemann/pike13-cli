@@ -13,6 +13,7 @@ module Pike13
           def query
             handle_error do
               params = build_query_params
+              params[:fields] ||= %w[event_occurrence_id event_name service_date enrollment_count capacity]
               result = with_progress("Fetching event occurrences report") do
                 Pike13::Reporting::EventOccurrences.query(**params)
               end

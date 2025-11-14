@@ -13,6 +13,7 @@ module Pike13
           def query
             handle_error do
               params = build_query_params
+              params[:fields] ||= %w[pay_id staff_name service_name final_pay_amount pay_state]
               result = with_progress("Fetching pays report") do
                 Pike13::Reporting::Pays.query(**params)
               end
