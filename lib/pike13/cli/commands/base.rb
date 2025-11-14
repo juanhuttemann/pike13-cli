@@ -4,14 +4,16 @@ module Pike13
   module CLI
     module Commands
       class Base < Thor
+        # Inherit verbose and quiet options from parent Runner
+        class_option :verbose, type: :boolean, aliases: "-v", desc: "Verbose output"
+        class_option :quiet, type: :boolean, aliases: "-q", desc: "Quiet mode (errors only)"
+
         # Helper to add format options to commands
         def self.format_options
           option :format, type: :string, default: "json", desc: "Output format (json, table, csv)"
           option :compact, type: :boolean, default: false, desc: "Compact JSON output"
           option :color, type: :boolean, default: false, desc: "Colorize table output"
           option :progress, type: :boolean, default: false, desc: "Show progress indicator"
-          option :verbose, type: :boolean, default: false, desc: "Show detailed HTTP request/response information"
-          option :quiet, type: :boolean, default: false, desc: "Suppress all output except errors"
         end
 
         private
