@@ -5,6 +5,40 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.2] - 2025-11-14
+
+### Fixed
+- **Verbose Flag** - Fixed broken `--verbose` flag that was not working in any commands
+  - Added proper inheritance of verbose/quiet options from parent Runner class
+  - Verbose mode now provides detailed HTTP request/response debugging information
+  - Shows connection establishment, SSL details, HTTP headers, and response data
+- **Help Command Display** - Fixed ghost commands in help output across all namespaces
+  - Eliminated duplicate "ghost" commands like `pike13 clients` that appeared in help but weren't executable
+  - All subcommands now show proper namespace prefixes (e.g., `pike13 report clients` instead of `pike13 clients`)
+  - Implemented clean inheritance-based solution using ThorNestedSubcommand module
+  - Applied fix to Report, Account, Desk, and Front namespaces comprehensively
+- **Help Command Tests** - Fixed failing tests that required environment variables
+  - Updated Runner.start to skip configuration for all help commands including subcommand help
+  - Help commands now work without requiring PIKE13_ACCESS_TOKEN or PIKE13_BASE_URL
+  - All 204 tests now pass with 0 failures
+
+### Added
+- **ThorNestedSubcommand Module** - Custom module to fix Thor's nested subcommand help display bug
+  - Based on thor_nested_subcommand gem pattern for proper namespace display
+  - Automatically generates base_usage from class names (e.g., Report::Clients → "report clients")
+  - Applied to Base class so all subcommands inherit the fix automatically
+- **Comprehensive Test Coverage** - Added extensive test suite for help commands
+  - Created spec/cli/help_commands_spec.rb with 16 test cases
+  - Tests cover all namespaces, subcommands, verbose flag availability, and ghost command elimination
+  - All tests have meaningful descriptions and comprehensive coverage
+
+### Changed
+- **CLI Architecture** - Improved command inheritance structure
+  - Base class now includes ThorNestedSubcommand automatically
+  - Auto-generated base_usage eliminates manual configuration for each subcommand
+  - Cleaner inheritance approach eliminates need for individual class modifications
+- **Error Messages** - Help commands now bypass configuration requirements for better UX
+
 ## [0.1.1] - 2025-11-14
 
 ### Added
