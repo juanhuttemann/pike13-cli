@@ -5,9 +5,29 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [0.1.1] - 2025-11-14
 
-## [0.1.0] - 2025-11-14
+### Added
+- **Comprehensive Report Support** - All 12 report commands now fully functional
+- **Field Parsing Enhancement** - Support for comma-separated field syntax: `--fields field1,field2,field3`
+- **Default Fields** - Added appropriate default fields to 10 previously broken report commands
+- **Format Support** - Verified support for JSON, table, CSV, and compact JSON formats across all reports
+
+### Fixed
+- **Report Commands** - Fixed all report commands that were failing with "missing keyword: :fields" error
+  - `pike13 report monthly_metrics query` - Added default fields
+  - `pike13 report invoices query` - Added default fields
+  - `pike13 report event_occurrences query` - Added default fields
+  - `pike13 report event_occurrence_staff query` - Added default fields
+  - `pike13 report invoice_items query` - Added default fields
+  - `pike13 report invoice_item_transactions query` - Fixed incorrect field names
+  - `pike13 report staff_members query` - Added default fields
+  - `pike13 report person_plans query` - Added default fields
+  - `pike13 report pays query` - Added default fields
+- **Field Validation** - Fixed field parsing to properly handle comma-separated values
+- **Command Consistency** - Updated README examples to reflect actual working command structure
+
+## [Unreleased]
 
 ### Fixed
 - **Report Commands** - Fixed critical field name issues in reporting commands

@@ -16,15 +16,6 @@ module Pike13
               output(result)
             end
           end
-
-          desc "get ID", "Get a custom field by ID"
-          format_options
-          def get(id)
-            handle_error do
-              result = Pike13::Desk::CustomField.find(id)
-              output(result)
-            end
-          end
         end
       end
     end

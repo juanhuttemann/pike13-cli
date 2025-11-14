@@ -72,22 +72,16 @@ Account-level operations (not scoped to a business subdomain):
 pike13 account me
 
 # List all businesses
-pike13 account businesses
+pike13 account businesses list
 
 # List all people across businesses
-pike13 account people
+pike13 account people list
 
 # Request password reset
-pike13 account password-reset --email "user@example.com"
+pike13 account password reset --email=user@example.com
 
 # Create email confirmation
-pike13 account confirmation create --token "confirmation_token"
-
-# Get business hours
-pike13 account business-hours show
-
-# Update business hours
-pike13 account business-hours update --monday "9:00-17:00" --tuesday "9:00-17:00"
+pike13 account confirmation create --token=confirmation_token
 ```
 
 ### Desk Namespace (Staff Interface)
@@ -272,7 +266,6 @@ pike13 desk notes delete 123 456
 
 # Custom Fields
 pike13 desk custom_fields list
-pike13 desk custom_fields get 185003
 
 # Forms of Payment
 pike13 desk forms_of_payment list 123
