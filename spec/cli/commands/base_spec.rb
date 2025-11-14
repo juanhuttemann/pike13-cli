@@ -136,5 +136,67 @@ RSpec.describe Pike13::CLI::Commands::Base do
       expect(command).not_to receive(:debug_message)
       command.send(:setup_verbose_mode)
     end
+    describe "#format_error_message" do
+      it "parses hash-like error messages" do
+        message = '{"base" => ["Error message with plans"]}'
+        result = command.send(:format_error_message, message)
+        expect(result).to eq("Error message with plans")
+      end
+
+      it "handles messages without hash format" do
+        message = "Simple error message"
+        result = command.send(:format_error_message, message)
+        expect(result).to eq("Simple error message")
+      end
+
+      it "cleans up quoted messages" do
+        message = '"Quoted error message"'
+        result = command.send(:format_error_message, message)
+        expect(result).to eq("Quoted error message")
+      end
+
+      it "handles empty message" do
+        result = command.send(:format_error_message, nil)
+        expect(result).to be_nil
+      end
+    end
+
+    describe "#get_validation_error_suggestions" do
+      it "returns default suggestions for unknown errors" do
+        suggestions = command.send(:get_validation_error_suggestions, "Unknown error")
+        expect(suggestions).to include("Check that all required fields are provided")
+        expect(suggestions).to include("Verify field formats (dates, emails, etc.)")
+        expect(suggestions).to include("Review the Pike13 API documentation for field requirements")
+      end
+
+      it "adds specific suggestions for active plans errors" do
+        suggestions = command.send(:get_validation_error_suggestions, "people with one or more active plans")
+        expect(suggestions.first).to include(
+          "Use 'pike13 desk person_plans list --person-id=ID' to check for active plans"
+        )
+        expect(suggestions[1]).to include("Cancel or end all active plans before deleting this person")
+      end
+
+      it "adds specific suggestions for bookings errors" do
+        suggestions = command.send(:get_validation_error_suggestions, "Cannot delete with active bookings")
+        expect(suggestions.first).to include("Cancel or complete all active bookings before deletion")
+      end
+
+      it "adds specific suggestions for payments errors" do
+        suggestions = command.send(:get_validation_error_suggestions, "Cannot delete with pending payments")
+        expect(suggestions.first).to include("Ensure there are no pending payment transactions")
+      end
+
+      it "adds specific suggestions for dependencies errors" do
+        suggestions = command.send(:get_validation_error_suggestions, "Cannot delete with dependencies")
+        expect(suggestions.first).to include("Remove or resolve all dependencies before deletion")
+      end
+
+      it "handles nil error message" do
+        suggestions = command.send(:get_validation_error_suggestions, nil)
+        expect(suggestions.length).to eq(3)
+        expect(suggestions.first).to include("Check that all required fields are provided")
+      end
+    end
   end
 end

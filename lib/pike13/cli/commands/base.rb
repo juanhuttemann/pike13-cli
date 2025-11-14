@@ -310,15 +310,17 @@ module Pike13
         end
 
         def format_error_message(message)
+          return nil if message.nil?
+
           # Handle common error message formats
           if message.include?("=>") && message.include?('"base"')
             # Parse hash-like error messages: {"base" => ["Error message"]}
             match = message.match(/\{"base"\s*=>\s*\[(.*?)\]\}/)
-            return match[1].gsub('"', '').strip if match
+            return match[1].gsub('"', "").strip if match
           end
 
           # Clean up common formatting issues
-          message.gsub(/^"|"$/, '').strip
+          message.gsub(/^"|"$/, "").strip
         end
       end
     end
