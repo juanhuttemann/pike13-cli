@@ -155,14 +155,28 @@ module Pike13
         def handle_validation_error(error)
           warn_message "Validation Error: The request contains invalid data"
           warn_message ""
-          if error.response_body
-            warn_message "Details: #{format_validation_errors(error.response_body)}"
+
+          # Show main error message if available
+          if error.message && !error.message.empty?
+            formatted_message = format_error_message(error.message)
+            warn_message "Error details: #{formatted_message}"
             warn_message ""
           end
+
+          # Show structured response body errors if available
+          if error.response_body
+            details = format_validation_errors(error.response_body)
+            if details && !details.empty?
+              warn_message "API response: #{details}"
+              warn_message ""
+            end
+          end
+
+          # Show specific suggestions for common validation errors
+          suggestions = get_validation_error_suggestions(error.message)
           warn_message "Suggestions:"
-          warn_message "  1. Check that all required fields are provided"
-          warn_message "  2. Verify field formats (dates, emails, etc.)"
-          warn_message "  3. Review the Pike13 API documentation for field requirements"
+          suggestions.each { |suggestion| warn_message "  #{suggestion}" }
+
           show_verbose_error_details(error) if options && options[:verbose]
           exit 1
         end
@@ -269,6 +283,42 @@ module Pike13
           else
             response_body.to_s
           end
+        end
+
+        def get_validation_error_suggestions(error_message)
+          suggestions = [
+            "Check that all required fields are provided",
+            "Verify field formats (dates, emails, etc.)",
+            "Review the Pike13 API documentation for field requirements"
+          ]
+
+          # Add specific suggestions based on error message content
+          if error_message
+            if error_message.include?("active plans")
+              suggestions.unshift("Cancel or end all active plans before deleting this person")
+              suggestions.unshift("Use 'pike13 desk person_plans list --person-id=ID' to check for active plans")
+            elsif error_message.include?("bookings")
+              suggestions.unshift("Cancel or complete all active bookings before deletion")
+            elsif error_message.include?("payments")
+              suggestions.unshift("Ensure there are no pending payment transactions")
+            elsif error_message.include?("dependencies")
+              suggestions.unshift("Remove or resolve all dependencies before deletion")
+            end
+          end
+
+          suggestions
+        end
+
+        def format_error_message(message)
+          # Handle common error message formats
+          if message.include?("=>") && message.include?('"base"')
+            # Parse hash-like error messages: {"base" => ["Error message"]}
+            match = message.match(/\{"base"\s*=>\s*\[(.*?)\]\}/)
+            return match[1].gsub('"', '').strip if match
+          end
+
+          # Clean up common formatting issues
+          message.gsub(/^"|"$/, '').strip
         end
       end
     end
