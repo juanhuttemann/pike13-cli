@@ -1,0 +1,229 @@
+#compdef pike13
+# Zsh completion for pike13 CLI
+# Installation:
+#   Copy this file to a directory in your $fpath, typically:
+#   cp completions/_pike13 ~/.zsh/completion/_pike13
+#   Then add to ~/.zshrc: fpath=(~/.zsh/completion $fpath)
+#   And run: autoload -U compinit && compinit
+
+_pike13() {
+    local curcontext="$curcontext" state line
+    typeset -A opt_args
+
+    _arguments -C \
+        '1: :_pike13_commands' \
+        '2: :_pike13_subcommands' \
+        '3: :_pike13_operations' \
+        '*::arg:->args'
+
+    case $state in
+        args)
+            case $words[1] in
+                desk|front|account|report)
+                    _pike13_options
+                    ;;
+            esac
+            ;;
+    esac
+}
+
+_pike13_commands() {
+    local commands=(
+        'desk:Access Desk API endpoints'
+        'front:Access Front API endpoints'
+        'account:Access Account API endpoints'
+        'report:Access Reporting API endpoints'
+        'help:Show help information'
+        'version:Show version information'
+    )
+    _describe -t commands 'pike13 commands' commands
+}
+
+_pike13_subcommands() {
+    case $words[2] in
+        desk)
+            local desk_commands=(
+                'people:Manage people'
+                'events:Manage events'
+                'event_occurrences:Manage event occurrences'
+                'bookings:Manage bookings'
+                'appointments:Manage appointments'
+                'visits:Manage visits'
+                'invoices:Manage invoices'
+                'payments:Manage payments'
+                'locations:Manage locations'
+                'services:Manage services'
+                'staff:Manage staff members'
+                'plans:Manage plans'
+                'notes:Manage person notes'
+                'custom_fields:Manage custom fields'
+                'revenue_categories:Manage revenue categories'
+                'sales_taxes:Manage sales taxes'
+                'make_ups:Manage make-ups'
+                'waitlist:Manage waitlist entries'
+                'person_visits:List person visits'
+                'person_plans:List person plans'
+                'person_waitlist:List person waitlist entries'
+                'person_waivers:List person waivers'
+                'forms_of_payment:Manage forms of payment'
+                'help:Show help for desk commands'
+            )
+            _describe -t desk-commands 'desk commands' desk_commands
+            ;;
+        front)
+            local front_commands=(
+                'people-me:Get current person'
+                'events-list:List events'
+                'event-occurrences-list:List event occurrences'
+                'services-list:List services'
+                'appointments-available:Find available appointments'
+                'locations-list:List locations'
+                'business:Get business information'
+                'branding:Get branding information'
+                'bookings-get:Get a booking'
+                'bookings-create:Create a booking'
+                'bookings-update:Update a booking'
+                'bookings-delete:Delete a booking'
+                'person-visits:List person visits'
+                'person-plans:List person plans'
+                'person-waitlist:List person waitlist entries'
+                'person-waivers:List person waivers'
+                'forms-of-payment-list:List forms of payment'
+                'forms-of-payment-get:Get a form of payment'
+                'forms-of-payment-me:Get own form of payment'
+                'forms-of-payment-create:Create a form of payment'
+                'forms-of-payment-update:Update a form of payment'
+                'forms-of-payment-delete:Delete a form of payment'
+                'help:Show help for front commands'
+            )
+            _describe -t front-commands 'front commands' front_commands
+            ;;
+        account)
+            local account_commands=(
+                'me:Get current account user'
+                'businesses:List businesses'
+                'people:Manage people'
+                'password-reset:Reset password'
+                'help:Show help for account commands'
+            )
+            _describe -t account-commands 'account commands' account_commands
+            ;;
+        report)
+            local report_commands=(
+                'clients:Generate clients report'
+                'transactions:Generate transactions report'
+                'enrollments:Generate enrollments report'
+                'monthly_metrics:Generate monthly metrics report'
+                'invoices:Generate invoices report'
+                'event_occurrences:Generate event occurrences report'
+                'event_occurrence_staff:Generate event occurrence staff report'
+                'invoice_items:Generate invoice items report'
+                'invoice_item_transactions:Generate invoice item transactions report'
+                'pays:Generate pays report'
+                'person_plans:Generate person plans report'
+                'staff_members:Generate staff members report'
+                'help:Show help for report commands'
+            )
+            _describe -t report-commands 'report commands' report_commands
+            ;;
+    esac
+}
+
+_pike13_operations() {
+    case $words[2] in
+        desk)
+            case $words[3] in
+                people|events|event_occurrences|locations|services|staff|plans|invoices|visits|notes|custom_fields|revenue_categories|sales_taxes|waitlist|forms_of_payment)
+                    local operations=(
+                        'list:List all resources'
+                        'ls:Alias for list'
+                        'get:Get a resource by ID'
+                        'create:Create a new resource'
+                        'update:Update a resource'
+                        'delete:Delete a resource'
+                        'help:Show help for this resource'
+                    )
+                    _describe -t operations 'operations' operations
+                    ;;
+                person_visits|person_plans|person_waitlist|person_waivers)
+                    local operations=(
+                        'list:List resources for a person'
+                        'ls:Alias for list'
+                        'help:Show help for this resource'
+                    )
+                    _describe -t operations 'operations' operations
+                    ;;
+                make_ups)
+                    local operations=(
+                        'reasons:List make-up reasons'
+                        'generate:Generate a make-up'
+                        'help:Show help for make-ups'
+                    )
+                    _describe -t operations 'operations' operations
+                    ;;
+                appointments)
+                    local operations=(
+                        'available:Find available appointment slots'
+                        'summary:Get availability summary'
+                        'help:Show help for appointments'
+                    )
+                    _describe -t operations 'operations' operations
+                    ;;
+                payments)
+                    local operations=(
+                        'get:Get a payment by ID'
+                        'configuration:Get payment configuration'
+                        'void:Void a payment'
+                        'help:Show help for payments'
+                    )
+                    _describe -t operations 'operations' operations
+                    ;;
+                bookings)
+                    local operations=(
+                        'get:Get a booking by ID'
+                        'create:Create a new booking'
+                        'update:Update a booking'
+                        'delete:Delete a booking'
+                        'help:Show help for bookings'
+                    )
+                    _describe -t operations 'operations' operations
+                    ;;
+                people)
+                    local operations=(
+                        'list:List all people'
+                        'ls:Alias for list'
+                        'get:Get a person by ID'
+                        'search:Search for people'
+                        'me:Get current person'
+                        'create:Create a new person'
+                        'update:Update a person'
+                        'delete:Delete a person'
+                        'help:Show help for people'
+                    )
+                    _describe -t operations 'operations' operations
+                    ;;
+                staff)
+                    local operations=(
+                        'list:List all staff'
+                        'ls:Alias for list'
+                        'get:Get a staff member by ID'
+                        'me:Get current staff user'
+                        'help:Show help for staff'
+                    )
+                    _describe -t operations 'operations' operations
+                    ;;
+            esac
+            ;;
+    esac
+}
+
+_pike13_options() {
+    _arguments \
+        '--format[Output format]:format:(json table csv)' \
+        '--compact[Compact output]' \
+        '--color[Enable color output]' \
+        '--help[Show help]' \
+        '-h[Show help]'
+}
+
+_pike13 "$@"

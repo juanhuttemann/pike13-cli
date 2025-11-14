@@ -1,0 +1,77 @@
+AllCops:
+  TargetRubyVersion: 3.0
+  NewCops: enable
+  SuggestExtensions: false
+  Exclude:
+    - 'vendor/**/*'
+    - 'pkg/**/*'
+    - 'tmp/**/*'
+
+# Style preferences
+Style/StringLiterals:
+  Enabled: true
+  EnforcedStyle: double_quotes
+
+Style/Documentation:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: true
+
+# Metrics
+Metrics/MethodLength:
+  Max: 30
+  Exclude:
+    - 'lib/pike13/cli/commands/base.rb'
+
+Metrics/BlockLength:
+  Max: 50
+  Exclude:
+    - 'spec/**/*'
+    - '*.gemspec'
+    - 'Rakefile'
+
+Metrics/ClassLength:
+  Max: 300
+  Exclude:
+    - 'lib/pike13/cli/commands/base.rb'
+    - 'lib/pike13/cli/formatter.rb'
+
+Metrics/AbcSize:
+  Max: 30
+  Exclude:
+    - 'lib/pike13/cli/commands/base.rb'
+    - 'lib/pike13/cli/formatter.rb'
+    - 'lib/pike13/cli/commands/report.rb'
+
+Metrics/CyclomaticComplexity:
+  Max: 10
+  Exclude:
+    - 'lib/pike13/cli/formatter.rb'
+    - 'lib/pike13/cli/commands/base.rb'
+
+Metrics/PerceivedComplexity:
+  Max: 10
+  Exclude:
+    - 'lib/pike13/cli/formatter.rb'
+    - 'lib/pike13/cli/commands/base.rb'
+
+# Layout
+Layout/LineLength:
+  Max: 120
+  Exclude:
+    - 'lib/pike13/cli/commands/base.rb'
+
+# Naming
+Naming/MethodParameterName:
+  AllowedNames:
+    - id
+    - to
+    - e
+
+# Disable certain cops that don't fit CLI style
+Style/GuardClause:
+  Enabled: false
+
+Style/IfUnlessModifier:
+  Enabled: false

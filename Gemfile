@@ -1,5 +1,15 @@
+# frozen_string_literal: true
+
 source "https://rubygems.org"
 
 gemspec
 
-gem "rake"
+group :development do
+  gem "bundler", "~> 2.0"
+  gem "rake", "~> 13.0"
+  gem "rspec", "~> 3.12"
+  gem "rubocop", "~> 1.50"
+  gem "rubocop-rake", "~> 0.6"
+  gem "rubocop-rspec", "~> 2.20"
+  gem "simplecov", "~> 0.22"
+end

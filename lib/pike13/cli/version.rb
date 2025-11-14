@@ -2,6 +2,6 @@
 
 module Pike13
   module CLI
-    VERSION = "0.1.0"
+    VERSION = "0.1.0.beta"
   end
 end

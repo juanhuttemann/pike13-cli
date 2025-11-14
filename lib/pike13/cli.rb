@@ -32,8 +32,16 @@ module Pike13
 
       desc "version", "Show version"
       def version
-        puts "pike13-cli version #{Pike13::CLI::VERSION}"
+        require "colorize" if $stdout.tty?
+
+        puts "pike13-cli version #{Pike13::CLI::VERSION}".bold if $stdout.tty?
+        puts "pike13-cli version #{Pike13::CLI::VERSION}" unless $stdout.tty?
         puts "pike13 gem version #{Pike13::VERSION}"
+        puts "Ruby version: #{RUBY_VERSION}"
+        puts ""
+        puts "Environment:"
+        puts "  PIKE13_ACCESS_TOKEN: #{ENV['PIKE13_ACCESS_TOKEN'] ? 'set' : 'not set'}"
+        puts "  PIKE13_BASE_URL: #{ENV['PIKE13_BASE_URL'] || 'not set'}"
       end
 
       def self.exit_on_failure?
@@ -47,7 +55,7 @@ module Pike13
           Config.configure_pike13!
         end
         super
-      rescue => e
+      rescue StandardError => e
         puts "Error: #{e.message}"
         exit 1
       end

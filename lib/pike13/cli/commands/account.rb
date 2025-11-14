@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 require_relative "base"
+require_relative "account/business"
+require_relative "account/person"
+require_relative "account/password"
+require_relative "account/confirmation"
 
 module Pike13
   module CLI
@@ -12,27 +16,17 @@ module Pike13
           handle_error { output(Pike13::Account.me) }
         end
 
-        desc "businesses", "List all businesses"
-        format_options
-        def businesses
-          handle_error { output(Pike13::Account::Business.all) }
-        end
+        desc "businesses SUBCOMMAND", "Manage businesses"
+        subcommand "businesses", Account::Business
 
-        desc "people", "List all people across businesses"
-        format_options
-        def people
-          handle_error { output(Pike13::Account::Person.all) }
-        end
+        desc "people SUBCOMMAND", "Manage people"
+        subcommand "people", Account::Person
 
-        desc "password-reset", "Request password reset"
-        format_options
-        option :email, type: :string, required: true
-        def password_reset
-          handle_error do
-            result = Pike13::Account::Password.create(email: options[:email])
-            output(result)
-          end
-        end
+        desc "password SUBCOMMAND", "Manage password"
+        subcommand "password", Account::Password
+
+        desc "confirmation SUBCOMMAND", "Manage account confirmation"
+        subcommand "confirmation", Account::Confirmation
       end
     end
   end

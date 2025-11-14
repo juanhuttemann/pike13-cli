@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        ruby-version: ['3.2', '3.3']
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Ruby ${{ matrix.ruby-version }}
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{ matrix.ruby-version }}
+        bundler-cache: true
+
+    - name: Install dependencies
+      run: bundle install
+
+    - name: Run RuboCop
+      run: bundle exec rubocop
+
+    - name: Run tests
+      run: bundle exec rspec
+
+    - name: Build gem
+      run: gem build pike13-cli.gemspec
+
+    - name: Check gem installation
+      run: |
+        gem install pike13-cli-*.gem
+        pike13 version
