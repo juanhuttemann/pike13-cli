@@ -42,3 +42,6 @@
 *.swo
 *~
 .DS_Store
+
+# RSpec
+.rspec_status
