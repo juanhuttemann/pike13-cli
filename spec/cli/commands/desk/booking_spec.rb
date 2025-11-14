@@ -34,13 +34,21 @@ RSpec.describe Pike13::CLI::Commands::Desk::Booking do
 
     before do
       allow(Pike13::Desk::Booking).to receive(:create)
-        .with(event_occurrence_id: params[:event_occurrence_id], person_id: params[:person_id], idempotency_token: kind_of(String))
+        .with(
+          event_occurrence_id: params[:event_occurrence_id],
+          person_id: params[:person_id],
+          idempotency_token: kind_of(String)
+        )
         .and_return({ id: booking_id, status: "pending" })
     end
 
     it "calls Booking.create from the SDK" do
       expect(Pike13::Desk::Booking).to receive(:create)
-        .with(event_occurrence_id: params[:event_occurrence_id], person_id: params[:person_id], idempotency_token: kind_of(String))
+        .with(
+          event_occurrence_id: params[:event_occurrence_id],
+          person_id: params[:person_id],
+          idempotency_token: kind_of(String)
+        )
 
       command.invoke(:create, [], params)
     end
