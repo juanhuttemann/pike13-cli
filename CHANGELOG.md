@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.4] - 2025-11-16
+
+### Fixed
+- **Critical Configuration Bug** - Fixed Pike13 client configuration that was preventing ALL API calls
+  - Resolved help command detection logic that was incorrectly skipping configuration for all commands
+  - API calls now work properly across all namespaces (account, front, desk, report)
+  - Fixed in `lib/pike13/cli.rb` by properly checking if first argument is a help command
+  - Environment variables `PIKE13_ACCESS_TOKEN` and `PIKE13_BASE_URL` now correctly configure the SDK
+
+### Changed
+- **Help Command Detection** - Improved logic to only skip configuration for actual help commands
+  - Now checks if first argument is "help", "version", or contains "--help"
+  - Previously incorrectly skipped configuration for all commands containing help text
+
 ## [0.1.3] - 2025-11-16
 
 ### Added
