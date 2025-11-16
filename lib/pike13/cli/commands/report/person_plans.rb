@@ -7,6 +7,10 @@ module Pike13
     module Commands
       class Report < Base
         class PersonPlans < Base
+          # Override base_usage to match the actual subcommand registration
+          def self.base_usage
+            "report person_plans"
+          end
           include Concerns::ReportingQuery
 
           desc "query", "Query person plans report"

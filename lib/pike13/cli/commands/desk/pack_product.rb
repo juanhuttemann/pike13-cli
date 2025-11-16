@@ -5,6 +5,10 @@ module Pike13
     module Commands
       class Desk < Base
         class PackProduct < Base
+          # Override base_usage to match the actual subcommand registration
+          def self.base_usage
+            "desk pack_products"
+          end
           desc "list", "List all pack products"
           format_options
           def list

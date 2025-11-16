@@ -63,19 +63,19 @@ module Pike13
         desc "branding SUBCOMMAND", "Branding info"
         subcommand "branding", Front::Branding
 
-        desc "person-visits SUBCOMMAND", "Manage person visits"
+        desc "person_visits SUBCOMMAND", "Manage person visits"
         subcommand "person_visits", Front::PersonVisit
 
-        desc "person-plans SUBCOMMAND", "Manage person plans"
+        desc "person_plans SUBCOMMAND", "Manage person plans"
         subcommand "person_plans", Front::PersonPlan
 
-        desc "person-waitlist SUBCOMMAND", "Manage person waitlist entries"
+        desc "person_waitlist SUBCOMMAND", "Manage person waitlist entries"
         subcommand "person_waitlist", Front::PersonWaitlistEntry
 
-        desc "person-waivers SUBCOMMAND", "Manage person waivers"
+        desc "person_waivers SUBCOMMAND", "Manage person waivers"
         subcommand "person_waivers", Front::PersonWaiver
 
-        desc "forms-of-payment SUBCOMMAND", "Manage forms of payment"
+        desc "forms_of_payment SUBCOMMAND", "Manage forms of payment"
         subcommand "forms_of_payment", Front::FormOfPayment
       end
     end

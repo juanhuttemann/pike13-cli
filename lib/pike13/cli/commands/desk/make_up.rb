@@ -5,6 +5,10 @@ module Pike13
     module Commands
       class Desk < Base
         class MakeUp < Base
+          # Override base_usage to match the actual subcommand registration
+          def self.base_usage
+            "desk make_ups"
+          end
           desc "get ID", "Get a make-up by ID"
           format_options
           def get(id)

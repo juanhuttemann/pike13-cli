@@ -5,6 +5,10 @@ module Pike13
     module Commands
       class Desk < Base
         class EventOccurrenceVisit < Base
+          # Override base_usage to match the actual subcommand registration
+          def self.base_usage
+            "desk event_occurrence_visits"
+          end
           desc "list EVENT_OCCURRENCE_ID", "List visits for an event occurrence"
           format_options
           def list(event_occurrence_id)

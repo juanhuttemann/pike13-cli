@@ -21,33 +21,6 @@ export PIKE13_ACCESS_TOKEN="your_access_token"
 export PIKE13_BASE_URL="yourbusiness.pike13.com"
 ```
 
-### Shell Completion (Optional)
-
-The CLI includes tab completion support for bash and zsh.
-
-**Bash:**
-```bash
-# Copy the completion script
-sudo cp completions/pike13.bash /etc/bash_completion.d/pike13
-
-# Or source it in your ~/.bashrc
-echo 'source /path/to/pike13-cli/completions/pike13.bash' >> ~/.bashrc
-source ~/.bashrc
-```
-
-**Zsh:**
-```bash
-# Create completion directory if it doesn't exist
-mkdir -p ~/.zsh/completion
-
-# Copy the completion script
-cp completions/_pike13 ~/.zsh/completion/
-
-# Add to ~/.zshrc (if not already present)
-echo 'fpath=(~/.zsh/completion $fpath)' >> ~/.zshrc
-echo 'autoload -U compinit && compinit' >> ~/.zshrc
-source ~/.zshrc
-```
 
 ## Usage
 
@@ -65,13 +38,13 @@ pike13 <namespace> <resource> <action> [options]
 
 ### Account Namespace
 
-Account-level operations (not scoped to a business subdomain):
+Account-level operations:
 
 ```bash
 # Get current account
 pike13 account me
 
-# List all businesses
+# List all businesses for the current account
 pike13 account businesses list
 
 # List all people in the account
@@ -462,6 +435,10 @@ pike13 report clients query --progress --format table
 pike13 help
 pike13 desk help
 pike13 desk people help
+pike13 desk event_occurrences help
+pike13 desk event_occurrence_notes help
+pike13 desk custom_fields help
+pike13 desk forms_of_payment help
 pike13 report help
 
 # Verbose output (show HTTP requests and detailed debugging)
@@ -556,6 +533,34 @@ pike13 report clients query \
 watch -n 300 "pike13 report clients query \
   --fields full_name,email,client_since_date \
   --format table"
+```
+
+### Shell Completion (Optional)
+
+The CLI includes tab completion support for bash and zsh.
+
+**Bash:**
+```bash
+# Copy the completion script
+sudo cp completions/pike13.bash /etc/bash_completion.d/pike13
+
+# Or source it in your ~/.bashrc
+echo 'source /path/to/pike13-cli/completions/pike13.bash' >> ~/.bashrc
+source ~/.bashrc
+```
+
+**Zsh:**
+```bash
+# Create completion directory if it doesn't exist
+mkdir -p ~/.zsh/completion
+
+# Copy the completion script
+cp completions/_pike13 ~/.zsh/completion/
+
+# Add to ~/.zshrc (if not already present)
+echo 'fpath=(~/.zsh/completion $fpath)' >> ~/.zshrc
+echo 'autoload -U compinit && compinit' >> ~/.zshrc
+source ~/.zshrc
 ```
 
 ## Tips and Tricks
@@ -769,6 +774,9 @@ pike13 report clients query --format csv > clients.csv
 pike13 help
 pike13 desk help
 pike13 desk people help
+pike13 desk event_occurrences help
+pike13 desk custom_fields help
+pike13 desk forms_of_payment help
 
 # Check your environment
 pike13 version

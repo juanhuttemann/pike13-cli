@@ -5,6 +5,10 @@ module Pike13
     module Commands
       class Front < Base
         class EventOccurrence < Base
+          # Override base_usage to match the actual subcommand registration
+          def self.base_usage
+            "front event_occurrences"
+          end
           desc "list", "List event occurrences (client view)"
           format_options
           option :from, type: :string, desc: "Start date (YYYY-MM-DD)"

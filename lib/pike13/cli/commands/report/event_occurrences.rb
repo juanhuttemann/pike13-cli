@@ -7,6 +7,10 @@ module Pike13
     module Commands
       class Report < Base
         class EventOccurrences < Base
+          # Override base_usage to match the actual subcommand registration
+          def self.base_usage
+            "report event_occurrences"
+          end
           include Concerns::ReportingQuery
 
           desc "query", "Query event occurrences report"

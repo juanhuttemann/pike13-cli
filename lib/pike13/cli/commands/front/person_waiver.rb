@@ -5,6 +5,10 @@ module Pike13
     module Commands
       class Front < Base
         class PersonWaiver < Base
+          # Override base_usage to match the actual subcommand registration
+          def self.base_usage
+            "front person_waivers"
+          end
           desc "list PERSON_ID", "List waivers for a person (client view)"
           format_options
           def list(person_id)

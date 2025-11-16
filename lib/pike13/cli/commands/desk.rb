@@ -92,34 +92,34 @@ module Pike13
         desc "notes SUBCOMMAND", "Manage person notes"
         subcommand "notes", Desk::Note
 
-        desc "custom-fields SUBCOMMAND", "Manage custom fields"
+        desc "custom_fields SUBCOMMAND", "Manage custom fields"
         subcommand "custom_fields", Desk::CustomField
 
-        desc "revenue-categories SUBCOMMAND", "Manage revenue categories"
+        desc "revenue_categories SUBCOMMAND", "Manage revenue categories"
         subcommand "revenue_categories", Desk::RevenueCategory
 
-        desc "sales-taxes SUBCOMMAND", "Manage sales taxes"
+        desc "sales_taxes SUBCOMMAND", "Manage sales taxes"
         subcommand "sales_taxes", Desk::SalesTax
 
-        desc "make-ups SUBCOMMAND", "Manage make-ups"
+        desc "make_ups SUBCOMMAND", "Manage make-ups"
         subcommand "make_ups", Desk::MakeUp
 
         desc "waitlist SUBCOMMAND", "Manage waitlist entries"
         subcommand "waitlist", Desk::WaitlistEntry
 
-        desc "person-visits SUBCOMMAND", "Manage person visits"
+        desc "person_visits SUBCOMMAND", "Manage person visits"
         subcommand "person_visits", Desk::PersonVisit
 
-        desc "person-plans SUBCOMMAND", "Manage person plans"
+        desc "person_plans SUBCOMMAND", "Manage person plans"
         subcommand "person_plans", Desk::PersonPlan
 
-        desc "person-waitlist SUBCOMMAND", "Manage person waitlist entries"
+        desc "person_waitlist SUBCOMMAND", "Manage person waitlist entries"
         subcommand "person_waitlist", Desk::PersonWaitlistEntry
 
-        desc "person-waivers SUBCOMMAND", "Manage person waivers"
+        desc "person_waivers SUBCOMMAND", "Manage person waivers"
         subcommand "person_waivers", Desk::PersonWaiver
 
-        desc "forms-of-payment SUBCOMMAND", "Manage forms of payment"
+        desc "forms_of_payment SUBCOMMAND", "Manage forms of payment"
         subcommand "forms_of_payment", Desk::FormOfPayment
 
         desc "packs SUBCOMMAND", "Manage packs"
@@ -128,10 +128,10 @@ module Pike13
         desc "punches SUBCOMMAND", "Manage punches"
         subcommand "punches", Desk::Punch
 
-        desc "plan-products SUBCOMMAND", "Manage plan products"
+        desc "plan_products SUBCOMMAND", "Manage plan products"
         subcommand "plan_products", Desk::PlanProduct
 
-        desc "pack-products SUBCOMMAND", "Manage pack products"
+        desc "pack_products SUBCOMMAND", "Manage pack products"
         subcommand "pack_products", Desk::PackProduct
       end
     end

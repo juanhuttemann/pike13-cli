@@ -5,6 +5,10 @@ module Pike13
     module Commands
       class Front < Base
         class EventOccurrenceNote < Base
+          # Override base_usage to match the actual subcommand registration
+          def self.base_usage
+            "front event_occurrence_notes"
+          end
           desc "list EVENT_OCCURRENCE_ID", "List notes for an event occurrence"
           format_options
           def list(event_occurrence_id)

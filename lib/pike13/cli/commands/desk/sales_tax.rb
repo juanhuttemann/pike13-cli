@@ -5,6 +5,10 @@ module Pike13
     module Commands
       class Desk < Base
         class SalesTax < Base
+          # Override base_usage to match the actual subcommand registration
+          def self.base_usage
+            "desk sales_taxes"
+          end
           desc "list", "List all sales taxes"
           map "ls" => :list
           format_options

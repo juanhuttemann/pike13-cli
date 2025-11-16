@@ -27,31 +27,31 @@ module Pike13
         desc "enrollments SUBCOMMAND", "Query enrollments report"
         subcommand "enrollments", Report::Enrollments
 
-        desc "monthly-metrics SUBCOMMAND", "Query monthly business metrics"
+        desc "monthly_metrics SUBCOMMAND", "Query monthly business metrics"
         subcommand "monthly_metrics", Report::MonthlyBusinessMetrics
 
         desc "invoices SUBCOMMAND", "Query invoices report"
         subcommand "invoices", Report::Invoices
 
-        desc "event-occurrences SUBCOMMAND", "Query event occurrences report"
+        desc "event_occurrences SUBCOMMAND", "Query event occurrences report"
         subcommand "event_occurrences", Report::EventOccurrences
 
-        desc "event-occurrence-staff SUBCOMMAND", "Query event occurrence staff members report"
+        desc "event_occurrence_staff SUBCOMMAND", "Query event occurrence staff members report"
         subcommand "event_occurrence_staff", Report::EventOccurrenceStaffMembers
 
-        desc "invoice-items SUBCOMMAND", "Query invoice items report"
+        desc "invoice_items SUBCOMMAND", "Query invoice items report"
         subcommand "invoice_items", Report::InvoiceItems
 
-        desc "invoice-item-transactions SUBCOMMAND", "Query invoice item transactions report"
+        desc "invoice_item_transactions SUBCOMMAND", "Query invoice item transactions report"
         subcommand "invoice_item_transactions", Report::InvoiceItemTransactions
 
         desc "pays SUBCOMMAND", "Query pays report"
         subcommand "pays", Report::Pays
 
-        desc "person-plans SUBCOMMAND", "Query person plans report"
+        desc "person_plans SUBCOMMAND", "Query person plans report"
         subcommand "person_plans", Report::PersonPlans
 
-        desc "staff-members SUBCOMMAND", "Query staff members report"
+        desc "staff_members SUBCOMMAND", "Query staff members report"
         subcommand "staff_members", Report::StaffMembers
       end
     end
