@@ -5,6 +5,11 @@ module Pike13
     module Commands
       class Front < Base
         class EventOccurrenceWaitlistEligibility < Base
+          # Override base_usage to match the actual subcommand registration
+          def self.base_usage
+            "front event_occurrence_waitlist_eligibilities"
+          end
+
           desc "list EVENT_OCCURRENCE_ID", "List waitlist eligibility for an event occurrence"
           format_options
           def list(event_occurrence_id)

@@ -66,7 +66,12 @@ Full staff interface with read/write access:
 ```bash
 # List all people
 pike13 desk people list
+# or
+pike13 desk people ls
+```
+See [shortcuts](#command-shortcuts) for faster alternatives 
 
+```bash
 # Find a person
 pike13 desk people get 123
 
@@ -565,14 +570,85 @@ source ~/.zshrc
 
 ## Tips and Tricks
 
-### Command Aliases
+### Command Shortcuts
 
-Many list commands support the `ls` alias:
+The CLI includes shortcuts for frequently used long commands to improve usability:
+
+#### Desk Namespace Shortcuts
+
 ```bash
-pike13 desk people ls
-pike13 desk locations ls
-pike13 desk events ls
+# Event Occurrences
+pike13 desk eo list                    # Instead of: pike13 desk event_occurrences list
+pike13 desk eo get 789                 # Instead of: pike13 desk event_occurrences get 789
+pike13 desk eo ls                      # Also works with ls alias
+
+# Event Occurrence Notes
+pike13 desk eon list --event-occurrence-id 789  # Instead of: pike13 desk event_occurrence_notes list
+
+# Forms of Payment
+pike13 desk fop list 123               # Instead of: pike13 desk forms_of_payment list 123
+
+# Person-related shortcuts
+pike13 desk pv list 123                # person_visits
+pike13 desk ppl list 123               # person_plans
+pike13 desk pw list 123                # person_waivers
+pike13 desk pwl list 123               # person_waitlist
+
+# Management shortcuts
+pike13 desk cf list                    # custom_fields
+pike13 desk rc list                    # revenue_categories
+pike13 desk st list                    # sales_taxes
+pike13 desk mu reasons                 # make_ups
 ```
+
+#### Account Namespace Shortcuts
+
+```bash
+# Account namespace
+pike13 ac me                            # Instead of: pike13 account me
+pike13 ac businesses list               # Instead of: pike13 account businesses list
+pike13 ac people list                   # Instead of: pike13 account people list
+```
+
+#### Front Namespace Shortcuts
+
+```bash
+# Event Occurrences
+pike13 front eo list                    # Instead of: pike13 front event_occurrences list
+
+# Event Occurrence Notes
+pike13 front eon list --event-occurrence-id 789
+
+pike13 front eowe list --event-occurrence-id 789  # event_occurrence_waitlist_eligibilities (41→4 chars = 90% reduction)
+
+# Client-facing resources
+pike13 front pp list                    # plan_products
+pike13 front pt list                    # plan_terms
+pike13 front fop list 123               # forms_of_payment
+
+# Person-related shortcuts (client view)
+pike13 front pv list 123                # person_visits
+pike13 front ppl list 123               # person_plans
+pike13 front pw list 123                # person_waivers
+pike13 front pwl list 123               # person_waitlist
+```
+
+#### Report Namespace Shortcuts
+
+
+```bash
+pike13 report tx query                 # transactions (daily financial reporting)
+pike13 report mm query                 # monthly_metrics (business intelligence)
+
+pike13 report eosm query               # event_occurrence_staff_members (31→4 chars = 87% reduction)
+pike13 report iit query                # invoice_item_transactions (25→3 chars = 88% reduction)
+
+pike13 report eo query                 # event_occurrences
+pike13 report eos query                # event_occurrence_staff
+pike13 report ii query                 # invoice_items
+pike13 report sm query                 # staff_members
+```
+
 
 ### Colored Output
 

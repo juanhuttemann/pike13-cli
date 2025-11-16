@@ -24,11 +24,17 @@ module Pike13
         desc "transactions SUBCOMMAND", "Query transactions report"
         subcommand "transactions", Report::Transactions
 
+        desc "tx SUBCOMMAND", "Query transactions report (shortcut)"
+        subcommand "tx", Report::Transactions
+
         desc "enrollments SUBCOMMAND", "Query enrollments report"
         subcommand "enrollments", Report::Enrollments
 
         desc "monthly_metrics SUBCOMMAND", "Query monthly business metrics"
         subcommand "monthly_metrics", Report::MonthlyBusinessMetrics
+
+        desc "mm SUBCOMMAND", "Query monthly business metrics (shortcut)"
+        subcommand "mm", Report::MonthlyBusinessMetrics
 
         desc "invoices SUBCOMMAND", "Query invoices report"
         subcommand "invoices", Report::Invoices
@@ -36,14 +42,26 @@ module Pike13
         desc "event_occurrences SUBCOMMAND", "Query event occurrences report"
         subcommand "event_occurrences", Report::EventOccurrences
 
+        desc "eo SUBCOMMAND", "Query event occurrences report (shortcut)"
+        subcommand "eo", Report::EventOccurrences
+
         desc "event_occurrence_staff SUBCOMMAND", "Query event occurrence staff members report"
         subcommand "event_occurrence_staff", Report::EventOccurrenceStaffMembers
+
+        desc "eos SUBCOMMAND", "Query event occurrence staff members report (shortcut)"
+        subcommand "eos", Report::EventOccurrenceStaffMembers
 
         desc "invoice_items SUBCOMMAND", "Query invoice items report"
         subcommand "invoice_items", Report::InvoiceItems
 
+        desc "ii SUBCOMMAND", "Query invoice items report (shortcut)"
+        subcommand "ii", Report::InvoiceItems
+
         desc "invoice_item_transactions SUBCOMMAND", "Query invoice item transactions report"
         subcommand "invoice_item_transactions", Report::InvoiceItemTransactions
+
+        desc "iit SUBCOMMAND", "Query invoice item transactions report (shortcut)"
+        subcommand "iit", Report::InvoiceItemTransactions
 
         desc "pays SUBCOMMAND", "Query pays report"
         subcommand "pays", Report::Pays

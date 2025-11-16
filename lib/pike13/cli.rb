@@ -27,6 +27,9 @@ module Pike13
       desc "account SUBCOMMAND", "Account namespace"
       subcommand "account", Commands::Account
 
+      desc "ac SUBCOMMAND", "Account namespace (shortcut)"
+      subcommand "ac", Commands::Account
+
       desc "report SUBCOMMAND", "Reporting API"
       subcommand "report", Commands::Report
 
