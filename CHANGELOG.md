@@ -5,6 +5,30 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.3] - 2025-11-16
+
+### Added
+- **Resource Shortcuts** - Added convenient shortcuts for frequently accessed resources
+  - Desk shortcuts for quick access to common staff operations
+  - Front shortcuts for client interface operations
+  - Report shortcuts for common reporting needs
+  - Event occurrence waitlist eligibility shortcut
+- **Enhanced Help Documentation** - Updated README with comprehensive shortcut documentation
+  - Added new examples showing shortcut usage patterns
+  - Improved organization and clarity of command documentation
+
+### Fixed
+- **Help Command Consistency** - Fixed help commands for underscore resources to match README
+  - Updated all resource names with underscores to be consistent in help output
+  - Applied fixes across Desk, Front, and Report namespaces
+  - Ensured help text accurately reflects actual command functionality
+  - Updated 33 files with consistent resource naming
+
+### Changed
+- **Documentation Structure** - Improved README organization with new shortcut section
+- **Command Discovery** - Enhanced user experience with more intuitive command access
+- **Code Organization** - Streamlined resource access patterns across all namespaces
+
 ## [0.1.2] - 2025-11-14
 
 ### Fixed
