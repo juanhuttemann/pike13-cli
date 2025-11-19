@@ -5,6 +5,10 @@ module Pike13
     module Commands
       class Desk < Base
         class Person < Base
+          # Override the command name display to use "people" instead of "person"
+          def self.base_usage
+            "desk people"
+          end
           desc "list", "List all people"
           map "ls" => :list
           format_options

@@ -5,6 +5,10 @@ module Pike13
     module Commands
       class Front < Base
         class PlanProduct < Base
+          # Override the command name display to use "plan_products" instead of "planproduct"
+          def self.base_usage
+            "front plan_products"
+          end
           desc "list", "List all plan products"
           format_options
           def list

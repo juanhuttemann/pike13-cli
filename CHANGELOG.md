@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.1] - 2025-11-18
+
+### Fixed
+- **Help Command Display Issue** - Fixed help commands showing incorrect singular forms instead of intended plural forms
+  - `pike13 desk people --help` now shows `pike13 desk people create/list/get/delete/me/search/update` instead of `pike13 desk person create/list/get/delete/me/search/update`
+  - `pike13 desk staff --help` now shows `pike13 desk staff get/list/help/me` instead of `pike13 desk staffmember get/list/help/me`
+  - `pike13 front plan_products --help` now shows `pike13 front plan_products get/list/help` instead of `pike13 front planproduct get/list/help`
+  - `pike13 account people --help` now shows `pike13 account people help/list` instead of `pike13 account person help/list`
+  - Applied `base_usage` overrides to ensure help commands display correct plural naming
+
 ## [0.2.0] - 2025-11-18
 
 ### Added
