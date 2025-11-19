@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    pike13-cli (0.1.4)
+    pike13-cli (0.2.0)
       colorize (~> 1.1)
       pike13 (~> 0.1)
       table_print (~> 1.5)
@@ -37,7 +37,7 @@ GEM
     parser (3.3.10.0)
       ast (~> 2.4.1)
       racc
-    pike13 (0.1.3)
+    pike13 (0.1.4)
       httparty (~> 0.21)
     prism (1.6.0)
     public_suffix (6.0.2)

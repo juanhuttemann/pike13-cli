@@ -3,24 +3,6 @@
 RSpec.describe Pike13::CLI::Commands::Desk::Visit do
   let(:command) { described_class.new }
 
-  describe "#list" do
-    before do
-      allow(Pike13::Desk::Visit).to receive(:all)
-        .and_return([{ id: 1, person_name: "John Client", visit_date: "2024-01-15" }])
-    end
-
-    it "calls Visit.all from the SDK" do
-      expect(Pike13::Desk::Visit).to receive(:all)
-
-      command.invoke(:list)
-    end
-
-    it "outputs the visits list" do
-      expect { command.invoke(:list) }
-        .to output(/John Client/).to_stdout
-    end
-  end
-
   describe "#get" do
     let(:visit_id) { "1" }
 

@@ -8,10 +8,18 @@ module Pike13
           desc "list", "List all people"
           map "ls" => :list
           format_options
+          option :created_since, type: :string, desc: "Filter to people created since given timestamp (ISO 8601)"
+          option :updated_since, type: :string, desc: "Filter to people updated since given timestamp (ISO 8601)"
+          option :is_member, type: :boolean, desc: "Filter to people with current membership"
+          option :include_relationships, type: :boolean, desc: "Include providers and dependents for each person"
+          option :include_balances, type: :boolean, desc: "Include balances for each person"
+          option :sort, type: :string,
+                        desc: "Sort results by attributes (updated_at, created_at, id). Use - for descending"
           def list
             handle_error do
+              params = build_person_params
               result = with_progress("Fetching people") do
-                Pike13::Desk::Person.all
+                Pike13::Desk::Person.all(**params)
               end
               output(result)
             end
@@ -90,6 +98,21 @@ module Pike13
               Pike13::Desk::Person.destroy(id)
               success_message "Person #{id} deleted successfully"
             end
+          end
+
+          private
+
+          def build_person_params
+            params = {}
+            params[:created_since] = options[:created_since] if options[:created_since]
+            params[:updated_since] = options[:updated_since] if options[:updated_since]
+            params[:is_member] = options[:is_member] unless options[:is_member].nil?
+            [
+              [:include_relationships, options[:include_relationships]],
+              [:include_balances, options[:include_balances]],
+              [:sort, options[:sort]]
+            ].each { |key, value| params[key] = value if value }
+            params
           end
         end
       end

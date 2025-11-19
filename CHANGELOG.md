@@ -5,6 +5,85 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.0] - 2025-11-18
+
+### Added
+- **Comprehensive Parameter Support** - Added extensive filtering and query parameters to major endpoints
+- **Desk People List Parameters**:
+  - `--created_since` - Filter to people created since given timestamp (ISO 8601)
+  - `--updated_since` - Filter to people updated since given timestamp (ISO 8601)
+  - `--is-member` - Filter to people with current membership (true/false)
+  - `--include-relationships` - Include providers and dependents for each person
+  - `--include-balances` - Include balances for each person
+  - `--sort` - Sort results by attributes (updated_at, created_at, id). Use - for descending
+- **Desk Events List Parameters**:
+  - `--from` - Start date (YYYY-MM-DD or timestamp)
+  - `--to` - End date (YYYY-MM-DD or timestamp, max 120 days from from)
+  - `--ids` - Comma-separated event IDs
+  - `--service-ids` - Comma-separated service IDs
+- **Desk Event Occurrences List Parameters**:
+  - `--from` - Start date (YYYY-MM-DD)
+  - `--to` - End date (YYYY-MM-DD)
+  - `--ids` - Comma-separated event occurrence IDs
+  - `--state` - Comma-separated states (active,canceled,reserved,deleted)
+  - `--staff-member-ids` - Comma-separated staff member IDs
+  - `--service-ids` - Comma-separated service IDs
+  - `--event-ids` - Comma-separated event IDs
+  - `--location-ids` - Comma-separated location IDs
+  - `--group-by` - Group results by (day,hour)
+- **Front Events List Parameters**:
+  - Same parameters as desk events (from, to, ids, service_ids)
+- **Front Event Occurrences List Parameters**:
+  - Same parameters as desk event occurrences (from, to, ids, state, staff_member_ids, service_ids, event_ids, location_ids)
+- **Person Visits Parameters**:
+  - `--from` - Start date for visit time range (YYYY-MM-DD or timestamp)
+  - `--to` - End date for visit time range (YYYY-MM-DD or timestamp)
+  - `--event-occurrence-id` - Scope to a specific event occurrence
+- **Event Occurrence Eligibilities Parameters**:
+  - `--person-ids` - Comma-separated person IDs for enrollment eligibility checking
+
+### Changed
+- **Pike13 SDK Integration** - Updated to use Pike13 SDK v0.1.4 with enhanced parameter support
+- **Improved Code Organization** - Refactored parameter building logic for better maintainability
+  - Extracted complex parameter building into separate helper methods
+  - Reduced method complexity and improved code readability
+  - Applied functional programming patterns for cleaner parameter handling
+- **Enhanced Command Structure** - Improved error handling and date validation across all parameterized commands
+- **Updated API Usage** - Fixed visits command structure to match actual API endpoints
+
+### Fixed
+- **Broken Visit List Command** - Removed non-functional `desk visits list` command that used non-existent API endpoint
+  - Updated to use proper `desk person_visits list PERSON_ID` pattern instead
+  - Added comprehensive parameter support to person visits endpoint
+- **SDK Compatibility Issues** - Updated SDK method signatures to support new parameter passing
+  - Modified `Pike13::Desk::Person.all()` to accept `**params`
+  - Modified `Pike13::Desk::Event.all()` to accept `**params`
+  - Modified `Pike13::Front::Event.all()` to accept `**params`
+- **Code Quality** - Resolved all RuboCop style and complexity violations
+  - Fixed 13 RuboCop offenses including line length, method complexity, and style issues
+  - All 129 files now pass style checks with zero violations
+
+### Examples
+```bash
+# Filter people by membership status
+pike13 desk people list --is-member=true
+
+# Sort people by most recently updated
+pike13 desk people list --sort="-updated_at"
+
+# Filter events by date range
+pike13 desk events list --from="2025-01-01" --to="2025-01-31"
+
+# Filter event occurrences by state and service
+pike13 desk event_occurrences list --state="active" --service-ids="123,456"
+
+# Get person's visits within date range
+pike13 desk person_visits list 12345 --from="2025-01-01" --to="2025-01-31"
+
+# Check enrollment eligibility for specific people
+pike13 desk event_occurrences eligibilities 789 --person-ids="111,222,333"
+```
+
 ## [0.1.4] - 2025-11-16
 
 ### Fixed

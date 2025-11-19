@@ -91,6 +91,84 @@ pike13 desk people update 123 --first-name "Jane"
 pike13 desk people delete 123
 ```
 
+#### Advanced Filtering and Parameters
+
+The CLI now supports comprehensive filtering and query parameters for major endpoints:
+
+##### People List Parameters
+
+```bash
+# Filter people by membership status
+pike13 desk people list --is-member=true
+pike13 desk people list --is-member=false
+
+# Filter by creation/update time
+pike13 desk people list --created-since="2025-01-01T00:00:00Z"
+pike13 desk people list --updated-since="2025-01-01T00:00:00Z"
+
+# Include additional data
+pike13 desk people list --include-relationships
+pike13 desk people list --include-balances
+
+# Sort results
+pike13 desk people list --sort="updated_at"
+pike13 desk people list --sort="-updated_at"  # descending
+pike13 desk people list --sort="created_at"
+pike13 desk people list --sort="id"
+
+# Combine multiple filters
+pike13 desk people list --is-member=true --sort="-updated_at" --include-relationships
+```
+
+##### Events List Parameters
+
+```bash
+# Filter by date range
+pike13 desk events list --from="2025-01-01" --to="2025-01-31"
+
+# Filter by specific IDs
+pike13 desk events list --ids="123,456,789"
+pike13 desk events list --service-ids="111,222"
+```
+
+##### Event Occurrences List Parameters
+
+```bash
+# Filter by date range
+pike13 desk event_occurrences list --from="2025-01-01" --to="2025-01-31"
+
+# Filter by state
+pike13 desk event_occurrences list --state="active"
+pike13 desk event_occurrences list --state="active,canceled"
+
+# Filter by staff, services, events, or locations
+pike13 desk event_occurrences list --staff-member-ids="111,222"
+pike13 desk event_occurrences list --service-ids="333,444"
+pike13 desk event_occurrences list --event-ids="555,666"
+pike13 desk event_occurrences list --location-ids="777,888"
+
+# Group results
+pike13 desk event_occurrences list --group-by="day"
+pike13 desk event_occurrences list --group-by="hour"
+```
+
+##### Person Visits Parameters
+
+```bash
+# Get visits for a specific person within date range
+pike13 desk person_visits list 12345 --from="2025-01-01" --to="2025-01-31"
+
+# Filter by specific event occurrence
+pike13 desk person_visits list 12345 --event-occurrence-id=67890
+```
+
+##### Enrollment Eligibility Parameters
+
+```bash
+# Check eligibility for specific people
+pike13 desk event_occurrences eligibilities 789 --person-ids="111,222,333"
+```
+
 #### Business
 
 ```bash
@@ -107,14 +185,24 @@ pike13 desk events list
 # Get an event
 pike13 desk events get 100
 
-# List event occurrences
+# List events with filtering
+pike13 desk events list --from "2025-01-01" --to "2025-01-31"
+pike13 desk events list --service-ids="123,456"
+
+# Get an event
+pike13 desk events get 100
+
+# List event occurrences with advanced filtering
 pike13 desk event_occurrences list --from "2025-01-01" --to "2025-01-31"
+pike13 desk event_occurrences list --state="active" --service-ids="123"
+pike13 desk event_occurrences list --staff-member-ids="456" --group-by="day"
 
 # Get event occurrence
 pike13 desk event_occurrences get 789
 
-# Get enrollment eligibilities
+# Get enrollment eligibilities with person filtering
 pike13 desk event_occurrences eligibilities 789
+pike13 desk event_occurrences eligibilities 789 --person-ids="111,222,333"
 ```
 
 #### Event Occurrence Notes
@@ -285,8 +373,13 @@ Client-facing interface with limited read-only access:
 # Get authenticated client user (only)
 pike13 front people me
 
-# List events (client view)
-pike13 front events list
+# List events (client view) with filtering
+pike13 front events list --from="2025-01-01" --to="2025-01-31"
+pike13 front events list --service-ids="123,456"
+
+# List event occurrences (client view) with filtering
+pike13 front event_occurrences list --from="2025-01-01" --to="2025-01-31"
+pike13 front event_occurrences list --state="active" --service-ids="123"
 
 # List locations (client view)
 pike13 front locations list

@@ -7,13 +7,35 @@ module Pike13
         class Event < Base
           desc "list", "List events (client view)"
           format_options
+          option :from, type: :string, desc: "Start date (YYYY-MM-DD or timestamp)"
+          option :to, type: :string, desc: "End date (YYYY-MM-DD or timestamp, max 120 days from from)"
+          option :ids, type: :string, desc: "Comma-separated event IDs"
+          option :service_ids, type: :string, desc: "Comma-separated service IDs"
           def list
+            validate_front_event_date_formats
             handle_error do
+              params = build_front_event_params
               result = with_progress("Fetching events") do
-                Pike13::Front::Event.all
+                Pike13::Front::Event.all(**params)
               end
               output(result)
             end
+          end
+
+          private
+
+          def validate_front_event_date_formats
+            validate_date_format(options[:from], "from") if options[:from]
+            validate_date_format(options[:to], "to") if options[:to]
+          end
+
+          def build_front_event_params
+            params = {}
+            params[:from] = options[:from] if options[:from]
+            params[:to] = options[:to] if options[:to]
+            params[:ids] = options[:ids] if options[:ids]
+            params[:service_ids] = options[:service_ids] if options[:service_ids]
+            params
           end
         end
       end

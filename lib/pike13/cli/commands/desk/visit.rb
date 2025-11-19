@@ -5,18 +5,6 @@ module Pike13
     module Commands
       class Desk < Base
         class Visit < Base
-          desc "list", "List all visits"
-          map "ls" => :list
-          format_options
-          def list
-            handle_error do
-              result = with_progress("Fetching visits") do
-                Pike13::Desk::Visit.all
-              end
-              output(result)
-            end
-          end
-
           desc "get ID", "Get a visit by ID"
           format_options
           def get(id)
