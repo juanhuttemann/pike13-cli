@@ -5,7 +5,7 @@ require_relative "lib/pike13/cli/version"
 Gem::Specification.new do |spec|
   spec.name = "pike13-cli"
   spec.version = Pike13::CLI::VERSION
-  spec.authors = ["Pike13 CLI Contributors"]
+  spec.authors = ["Juan Huttemann"]
   spec.email = ["juanfhuttemann@gmail.com"]
 
   spec.summary = "Command-line interface for Pike13 API"
