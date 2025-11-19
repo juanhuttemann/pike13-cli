@@ -11,6 +11,15 @@ module Pike13
         # Inherit verbose and quiet options from parent Runner
         class_option :verbose, type: :boolean, aliases: "-v", desc: "Verbose output"
         class_option :quiet, type: :boolean, aliases: "-q", desc: "Quiet mode (errors only)"
+        class_option :help, type: :boolean, aliases: "-h", desc: "Show help information"
+
+        # Override help to show command-specific options
+        def self.handle_argument_error(task, error, _type)
+          puts "Error: #{error.message}"
+          puts
+          puts "Run '#{basename} #{base_usage} #{task.name} --help' for more information."
+          exit 1
+        end
 
         # Auto-generate base_usage from class name
         def self.base_usage

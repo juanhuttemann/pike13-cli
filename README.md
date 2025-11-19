@@ -530,14 +530,33 @@ pike13 report clients query --progress --format table
 
 ```bash
 # Help for any command
-pike13 help
-pike13 desk help
-pike13 desk people help
-pike13 desk event_occurrences help
-pike13 desk event_occurrence_notes help
-pike13 desk custom_fields help
-pike13 desk forms_of_payment help
-pike13 report help
+pike13 --help
+pike13 -h
+
+pike13 desk --help
+pike13 desk -h
+
+pike13 desk people --help
+pike13 desk people -h
+
+pike13 desk event_occurrences --help
+pike13 desk event_occurrences -h
+
+pike13 desk event_occurrence_notes --help
+pike13 desk event_occurrence_notes -h
+
+pike13 desk custom_fields --help
+pike13 desk custom_fields -h
+
+pike13 desk forms_of_payment --help
+pike13 desk forms_of_payment -h
+
+pike13 report --help
+pike13 report -h
+
+# Help for specific commands
+pike13 desk people list --help
+pike13 report clients query --help
 
 # Verbose output (show HTTP requests and detailed debugging)
 pike13 desk people list --verbose
@@ -939,19 +958,30 @@ pike13 report clients query --format csv > clients.csv
 ### Getting Help
 
 ```bash
-# View help for any command
-pike13 help
-pike13 desk help
-pike13 desk people help
-pike13 desk event_occurrences help
-pike13 desk custom_fields help
-pike13 desk forms_of_payment help
+# View help for any command (use --help or -h flags)
+pike13 --help
+pike13 -h
+
+pike13 desk --help
+pike13 desk -h
+
+pike13 desk people --help
+pike13 desk people -h
+
+pike13 desk event_occurrences --help
+pike13 desk event_occurrences -h
+
+pike13 desk custom_fields --help
+pike13 desk custom_fields -h
+
+pike13 desk forms_of_payment --help
+pike13 desk forms_of_payment -h
 
 # Check your environment
 pike13 version
 
 # List all available commands
-pike13 help | grep -A 100 "Commands:"
+pike13 --help | grep -A 100 "Commands:"
 ```
 
 ## Development
@@ -969,7 +999,7 @@ gem build pike13-cli.gemspec
 gem install pike13-cli-0.1.0.beta.gem
 
 # Test the CLI
-pike13 help
+pike13 --help
 
 # Run tests
 bundle exec rspec

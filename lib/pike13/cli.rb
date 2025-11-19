@@ -17,6 +17,7 @@ module Pike13
     class Runner < Thor
       class_option :verbose, type: :boolean, aliases: "-v", desc: "Verbose output"
       class_option :quiet, type: :boolean, aliases: "-q", desc: "Quiet mode (errors only)"
+      class_option :help, type: :boolean, aliases: "-h", desc: "Show help information"
 
       desc "desk SUBCOMMAND", "Desk namespace (staff interface)"
       subcommand "desk", Commands::Desk
@@ -56,7 +57,8 @@ module Pike13
         # Skip config for help commands
         first_arg = given_args.first
         is_help_command = first_arg == "help" || first_arg == "version" ||
-                          given_args.any? { |arg| arg.include?("--help") }
+                          given_args.any? { |arg| arg.include?("--help") || arg.include?("-h") } ||
+                          given_args.include?("help") # Catch help subcommand at any level
         unless is_help_command || given_args.empty?
           Config.configure_pike13!
         end
