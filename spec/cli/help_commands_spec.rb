@@ -27,19 +27,16 @@ RSpec.describe "Help Commands" do
   describe "report subcommand help displays" do
     it "displays clients subcommand with correct namespace prefix" do
       help_output = `bundle exec bin/pike13 report clients --help 2>&1`
-      expect(help_output).to include("pike13 report clients help [COMMAND]")
       expect(help_output).to include("pike13 report clients query")
     end
 
     it "displays enrollments subcommand with correct namespace prefix" do
       help_output = `bundle exec bin/pike13 report enrollments --help 2>&1`
-      expect(help_output).to include("pike13 report enrollments help [COMMAND]")
       expect(help_output).to include("pike13 report enrollments query")
     end
 
     it "displays invoices subcommand with correct namespace prefix" do
       help_output = `bundle exec bin/pike13 report invoices --help 2>&1`
-      expect(help_output).to include("pike13 report invoices help [COMMAND]")
       expect(help_output).to include("pike13 report invoices query")
     end
   end
@@ -55,7 +52,6 @@ RSpec.describe "Help Commands" do
   describe "account subcommand help displays" do
     it "displays businesses subcommand with correct namespace prefix" do
       help_output = `bundle exec bin/pike13 account businesses --help 2>&1`
-      expect(help_output).to include("pike13 account business help [COMMAND]")
       expect(help_output).to include("pike13 account business list")
     end
   end
@@ -72,13 +68,11 @@ RSpec.describe "Help Commands" do
   describe "desk subcommand help displays" do
     it "displays people subcommand with correct namespace prefix" do
       help_output = `bundle exec bin/pike13 desk people --help 2>&1`
-      expect(help_output).to include("pike13 desk people help [COMMAND]")
       expect(help_output).to include("pike13 desk people list")
     end
 
     it "displays business subcommand with correct namespace prefix" do
       help_output = `bundle exec bin/pike13 desk business --help 2>&1`
-      expect(help_output).to include("pike13 desk business help [COMMAND]")
       expect(help_output).to include("pike13 desk business find")
     end
   end
@@ -94,14 +88,12 @@ RSpec.describe "Help Commands" do
   describe "front subcommand help displays" do
     it "displays people subcommand with correct namespace prefix" do
       help_output = `bundle exec bin/pike13 front people --help 2>&1`
-      expect(help_output).to include("pike13 front people help [COMMAND]")
       expect(help_output).to include("pike13 front people me")
     end
 
     it "displays events subcommand with correct namespace prefix" do
       help_output = `bundle exec bin/pike13 front events --help 2>&1`
-      expect(help_output).to include("pike13 front event help [COMMAND]")
-      expect(help_output).to include("pike13 front event list")
+      expect(help_output).to include("pike13 front events list")
     end
   end
 

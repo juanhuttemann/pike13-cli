@@ -13,8 +13,8 @@ module Pike13
         class_option :quiet, type: :boolean, aliases: "-q", desc: "Quiet mode (errors only)"
 
         # Override printable_commands to hide redundant help command from listings
-        def self.printable_commands(all = true, subcommand = false)
-          result = super(all, subcommand)
+        def self.printable_commands(*args)
+          result = super
           # Remove the help command from listings since it's redundant when using -h/--help
           result.reject { |item| item.first.include?("help [COMMAND]") }
         end
