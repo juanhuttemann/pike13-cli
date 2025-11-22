@@ -5,6 +5,11 @@ module Pike13
     module Commands
       class Desk < Base
         class Event < Base
+          # Override base_usage to match the actual subcommand registration
+          def self.base_usage
+            "desk events"
+          end
+
           desc "list", "List all events"
           map "ls" => :list
           format_options

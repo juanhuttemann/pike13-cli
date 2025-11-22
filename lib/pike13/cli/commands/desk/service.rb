@@ -5,6 +5,11 @@ module Pike13
     module Commands
       class Desk < Base
         class Service < Base
+          # Override base_usage to match the actual subcommand registration
+          def self.base_usage
+            "desk services"
+          end
+
           desc "list", "List all services"
           map "ls" => :list
           format_options

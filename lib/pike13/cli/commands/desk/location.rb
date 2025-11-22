@@ -5,6 +5,11 @@ module Pike13
     module Commands
       class Desk < Base
         class Location < Base
+          # Override base_usage to match the actual subcommand registration
+          def self.base_usage
+            "desk locations"
+          end
+
           desc "list", "List all locations"
           map "ls" => :list
           format_options

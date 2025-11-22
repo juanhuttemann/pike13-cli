@@ -353,10 +353,10 @@ pike13 desk make_ups reasons
 pike13 desk make_ups generate 456 --make-up-reason-id 126989 --free-form-reason "Client was sick"
 
 # Waitlist
-pike13 desk waitlist list
-pike13 desk waitlist get 789
-pike13 desk waitlist create --person-id 123 --event-id 100
-pike13 desk waitlist delete 789
+pike13 desk waitlist_entry list
+pike13 desk waitlist_entry get 789
+pike13 desk waitlist_entry create --person-id 123 --event-id 100
+pike13 desk waitlist_entry delete 789
 
 # Person-related resources
 pike13 desk person_visits list 123

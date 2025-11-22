@@ -122,8 +122,11 @@ module Pike13
         desc "mu SUBCOMMAND", "Manage make-ups (shortcut)"
         subcommand "mu", Desk::MakeUp
 
-        desc "waitlist SUBCOMMAND", "Manage waitlist entries"
-        subcommand "waitlist", Desk::WaitlistEntry
+        desc "waitlist_entry SUBCOMMAND", "Manage waitlist entries"
+        subcommand "waitlist_entry", Desk::WaitlistEntry
+
+        desc "wl SUBCOMMAND", "Manage waitlist entries (shortcut)"
+        subcommand "wl", Desk::WaitlistEntry
 
         desc "person_visits SUBCOMMAND", "Manage person visits"
         subcommand "person_visits", Desk::PersonVisit

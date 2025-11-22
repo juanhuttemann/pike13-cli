@@ -5,6 +5,11 @@ module Pike13
     module Commands
       class Front < Base
         class Service < Base
+          # Override base_usage to match the actual subcommand registration
+          def self.base_usage
+            "front services"
+          end
+
           desc "list", "List services (client view)"
           format_options
           def list

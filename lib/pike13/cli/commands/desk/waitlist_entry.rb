@@ -5,6 +5,10 @@ module Pike13
     module Commands
       class Desk < Base
         class WaitlistEntry < Base
+          # Override base_usage to match the actual subcommand registration
+          def self.base_usage
+            "desk waitlist_entry"
+          end
           desc "list", "List waitlist entries"
           map "ls" => :list
           format_options

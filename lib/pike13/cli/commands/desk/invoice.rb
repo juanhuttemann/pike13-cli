@@ -5,6 +5,11 @@ module Pike13
     module Commands
       class Desk < Base
         class Invoice < Base
+          # Override base_usage to match the actual subcommand registration
+          def self.base_usage
+            "desk invoices"
+          end
+
           desc "list", "List all invoices"
           map "ls" => :list
           format_options

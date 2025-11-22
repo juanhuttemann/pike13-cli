@@ -5,6 +5,11 @@ module Pike13
     module Commands
       class Front < Base
         class Location < Base
+          # Override base_usage to match the actual subcommand registration
+          def self.base_usage
+            "front locations"
+          end
+
           desc "list", "List locations (client view)"
           format_options
           def list
