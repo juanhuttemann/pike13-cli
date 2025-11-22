@@ -11,7 +11,13 @@ module Pike13
         # Inherit verbose and quiet options from parent Runner
         class_option :verbose, type: :boolean, aliases: "-v", desc: "Verbose output"
         class_option :quiet, type: :boolean, aliases: "-q", desc: "Quiet mode (errors only)"
-        class_option :help, type: :boolean, aliases: "-h", desc: "Show help information"
+
+        # Override printable_commands to hide redundant help command from listings
+        def self.printable_commands(all = true, subcommand = false)
+          result = super(all, subcommand)
+          # Remove the help command from listings since it's redundant when using -h/--help
+          result.reject { |item| item.first.include?("help [COMMAND]") }
+        end
 
         # Override help to show command-specific options
         def self.handle_argument_error(task, error, _type)
